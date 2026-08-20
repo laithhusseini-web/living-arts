@@ -1,0 +1,111 @@
+/* Living Arts — design tokens.
+   Light is the default; [data-theme="dark"] on <html> flips the whole system.
+   Contrast checked: ink 17.9:1, muted 4.96:1, accent 5.88:1 on white;
+   dark-mode accent 14.9:1 on page. --accent-fill is a FILL ONLY — the logo
+   chartreuse is 1.75:1 on white and must never carry text on a light surface. */
+
+:root {
+  /* surfaces */
+  --page: #fafbf8;
+  --card: #ffffff;
+  --bed: #f1f2f0;          /* minimal light grey panel behind a cutout plant */
+  --inset: #f4f6f2;
+
+  /* ink */
+  --ink: #14181a;
+  --ink-muted: #6b7269;
+  --ink-nav: #4a5149;
+
+  /* accent */
+  --accent: #4f6e10;       /* text-safe green: links, prices */
+  --accent-fill: #b8cf3b;  /* the logo chartreuse — fills and marks only */
+  --on-accent-fill: #14181a;
+  --accent-soft: #dff2a8;
+
+  /* lines */
+  --line: rgba(20, 24, 26, 0.08);
+  --line-mid: rgba(20, 24, 26, 0.12);
+  --line-strong: rgba(20, 24, 26, 0.18);
+
+  /* Hero is a dark photographic band in BOTH modes — the header sits over it,
+     so its type must stay legible whatever theme the page is in. */
+  --hero-a: #2c4133;
+  --hero-b: #1f3227;
+  --hero-c: #16241c;
+  --hero-glow: rgba(198, 242, 106, 0.14);
+  --hero-sheen: rgba(255, 255, 255, 0.1);
+  --hero-ink: #f5f7f2;
+  --hero-muted: rgba(245, 247, 242, 0.72);
+  --hero-accent: #c6f26a;
+  --hero-line: rgba(255, 255, 255, 0.32);
+  /* darkens the hero photo so the headline and menu always hold up */
+  --hero-overlay: linear-gradient(
+      to right,
+      rgba(6, 12, 8, 0.82) 0%,
+      rgba(6, 12, 8, 0.58) 42%,
+      rgba(6, 12, 8, 0.28) 72%,
+      rgba(6, 12, 8, 0.18) 100%
+    ),
+    linear-gradient(to bottom, rgba(6, 12, 8, 0.3) 0%, rgba(6, 12, 8, 0.12) 40%, rgba(6, 12, 8, 0.42) 100%);
+  /* scrim over the header band so the menu stays readable on any photo */
+  --hero-scrim: linear-gradient(
+    to bottom,
+    rgba(8, 14, 10, 0.72) 0%,
+    rgba(8, 14, 10, 0.45) 45%,
+    rgba(8, 14, 10, 0) 100%
+  );
+
+  /* inverted button (primary CTA) */
+  --btn-bg: #14181a;
+  --btn-fg: #fafbf8;
+  --btn-icon: #b8cf3b;
+
+  /* shape */
+  --radius: 4px;           /* buttons, chips, badges — rectangles */
+  --radius-card: 6px;
+  --radius-lg: 8px;
+
+  /* type */
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-spectral), Georgia, "Times New Roman", serif;
+  --track-caps: 0.18em;
+
+  /* rhythm */
+  --container: 1280px;
+  --header-h: 84px;
+  --pad: clamp(20px, 5vw, 64px);
+  --dur: 180ms;
+  --ease: cubic-bezier(0.22, 0.8, 0.3, 1);
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --page: #0d0f0e;
+  --card: #1a1d1b;
+  --bed: #161918;
+  --inset: #171a18;
+
+  --ink: #f2f4f0;
+  --ink-muted: #9ba398;
+  --ink-nav: #b4bcb0;
+
+  --accent: #c6f26a;
+  --accent-fill: #b8cf3b;
+  --on-accent-fill: #14181a;
+  --accent-soft: rgba(198, 242, 106, 0.16);
+
+  --line: rgba(255, 255, 255, 0.09);
+  --line-mid: rgba(255, 255, 255, 0.16);
+  --line-strong: rgba(255, 255, 255, 0.22);
+
+  --hero-a: #1c2a21;
+  --hero-b: #14201a;
+  --hero-c: #0e1813;
+
+  --btn-bg: #c6f26a;
+  --btn-fg: #0d0f0e;
+  --btn-icon: #0d0f0e;
+
+  color-scheme: dark;
+}
