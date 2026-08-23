@@ -34,10 +34,9 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   sharp,
-  upload: { limits: { fileSize: 10_000_000 } },
+  upload: { limits: { fileSize: 4_000_000 } },
   plugins: [
     vercelBlobStorage({
-      clientUploads: true,
       collections: { media: true },
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
