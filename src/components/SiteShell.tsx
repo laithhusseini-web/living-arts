@@ -12,6 +12,7 @@ import { ThemeToggle } from './ThemeToggle'
 export function SiteHeader({ shopName, isLoggedIn }: { shopName: string; isLoggedIn?: boolean }) {
   const pathname = usePathname()
   const overlay = pathname === '/'
+  const wordmark = shopName.match(/^(.*)(\barts\b)(.*)$/i)
 
   return (
     <header className={`la-header${overlay ? ' la-header--overlay' : ''}`}>
@@ -21,7 +22,15 @@ export function SiteHeader({ shopName, isLoggedIn }: { shopName: string; isLogge
         <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 11, color: 'inherit' }}>
           <img className="la-mark" src="/brand/logo.png" alt="" width={26} height={39} style={{ display: 'block', height: 'auto' }} />
           <span className="display la-wordmark" style={{ letterSpacing: '0.02em', lineHeight: 1 }}>
-            {shopName}
+            {wordmark ? (
+              <>
+                {wordmark[1]}
+                <span className="la-wordmark__accent">{wordmark[2]}</span>
+                {wordmark[3]}
+              </>
+            ) : (
+              shopName
+            )}
           </span>
         </Link>
         <nav>
