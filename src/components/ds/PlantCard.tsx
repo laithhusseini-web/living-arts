@@ -1,0 +1,110 @@
+'use client'
+import React from 'react'
+import Link from 'next/link'
+import { Icon } from './Icon'
+import { Badge } from './Badge'
+
+/** Catalogue card — a cutout plant sitting on the bed panel, name, botanical name, price. */
+export function PlantCard({
+  name,
+  latin,
+  photo,
+  href,
+  light,
+  lightLabel,
+  price,
+  stock,
+  featured,
+  currency = 'JOD',
+}: {
+  name: string
+  latin?: string | null
+  photo?: string | null
+  href: string
+  light?: string | null
+  lightLabel?: string
+  price?: number | string | null
+  stock?: number | null
+  featured?: boolean | null
+  currency?: string
+}) {
+  const [hov, setHov] = React.useState(false)
+  const isLimited = typeof stock === 'number' && stock > 0 && stock <= 5
+
+  return (
+    <Link
+      href={href}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        display: 'block',
+        color: 'inherit',
+      }}
+    >
+      <div
+        style={{
+          position: 'relative',
+          aspectRatio: '1 / 1',
+          background: 'var(--bed)',
+          borderRadius: 'var(--radius-card)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 44,
+        }}
+      >
+        {photo ? (
+          <img
+            src={photo}
+            alt=""
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              display: 'block',
+              transform: hov ? 'scale(1.04)' : 'none',
+              transition: 'transform 420ms var(--ease)',
+            }}
+          />
+        ) : (
+          <Icon name="leaf" size={44} strokeWidth={1.1} style={{ color: 'var(--ink-muted)', opacity: 0.5 }} />
+        )}
+        {featured || isLimited ? (
+          <div
+            style={{
+              position: 'absolute',
+              top: 12,
+              left: 12,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              gap: 6,
+            }}
+          >
+            {featured ? <Badge tone="soft">Featured</Badge> : null}
+            {isLimited ? <Badge>Limited</Badge> : null}
+          </div>
+        ) : null}
+      </div>
+
+      <div style={{ padding: '18px 2px 0' }}>
+        <div className="display" style={{ fontSize: 22, fontWeight: 400, lineHeight: 1.2 }}>
+          {name}
+        </div>
+        {latin ? (
+          <div className="latin" style={{ fontSize: 14.5, marginTop: 1 }}>
+            {latin}
+          </div>
+        ) : null}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 15 }}>
+          <span style={{ fontSize: 12, fontWeight: 300, color: 'var(--ink-muted)' }}>{lightLabel || light}</span>
+          {price != null ? (
+            <span style={{ fontSize: 15, fontWeight: 500, color: 'var(--accent)', whiteSpace: 'nowrap' }}>
+              {price} {currency}
+            </span>
+          ) : null}
+        </div>
+      </div>
+    </Link>
+  )
+}
