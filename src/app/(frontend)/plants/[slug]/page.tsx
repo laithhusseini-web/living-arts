@@ -49,7 +49,7 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
   const { docs: more } = await payload.find({
     collection: 'plants',
     where: { id: { not_equals: plant.id } },
-    limit: 3,
+    limit: 4,
     depth: 1,
     sort: ['-featured', 'name'],
   })

@@ -86,7 +86,7 @@ export default async function CataloguePage({
       <section id="collection" className="la-container" style={{ paddingBlock: '44px 96px' }}>
         <Reveal style={{ display: 'flex', alignItems: 'baseline', gap: 24, flexWrap: 'wrap' }}>
           <h2 className="display" style={{ fontSize: 34 }}>
-            The collection
+            Categories
           </h2>
           <span style={{ fontSize: 13, fontWeight: 300, color: 'var(--ink-muted)' }}>
             {totalDocs} {totalDocs === 1 ? 'plant' : 'plants'}
@@ -95,7 +95,7 @@ export default async function CataloguePage({
 
         <Reveal delay={0.08} style={{ display: 'flex', flexWrap: 'wrap', gap: 9, margin: '22px 0 34px' }}>
           <Chip href="/" selected={!active}>
-            All plants
+            All items
           </Chip>
           {categories.map((c) => (
             <Chip key={c.id} href={`/?category=${c.slug}`} selected={active?.id === c.id}>
@@ -111,7 +111,7 @@ export default async function CataloguePage({
         ) : (
           <div className="la-grid">
             {plants.map((plant, i) => (
-              <Reveal key={plant.id} delay={(i % 3) * 0.08}>
+              <Reveal key={plant.id} delay={(i % 4) * 0.08}>
                 <PlantCard
                   name={plant.name}
                   latin={plant.latin}
