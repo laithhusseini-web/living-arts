@@ -3,9 +3,10 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import { PlantGallery } from '@/components/PlantGallery'
+import type { PlantGalleryImage } from '@/components/PlantGallery'
 import { SpecTile } from '@/components/ds/SpecTile'
 import { PlantCard } from '@/components/ds/PlantCard'
-import { Badge } from '@/components/ds/Badge'
 import { Button } from '@/components/ds/Button'
 import { Icon } from '@/components/ds/Icon'
 import { Reveal } from '@/components/Reveal'
@@ -54,8 +55,29 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
     sort: ['-featured', 'name'],
   })
 
-  const photo = mediaUrl(plant.photo, 'full')
   const gallery = Array.isArray(plant.gallery) ? plant.gallery : []
+  const plantImages: PlantGalleryImage[] = []
+  const primaryImage = mediaUrl(plant.photo, 'full')
+
+  if (primaryImage) {
+    plantImages.push({
+      src: primaryImage,
+      thumbnail: mediaUrl(plant.photo, 'thumbnail') || primaryImage,
+      alt: mediaAlt(plant.photo, plant.name),
+    })
+  }
+
+  gallery.forEach((item, index) => {
+    const src = mediaUrl(item, 'full')
+    if (!src || plantImages.some((image) => image.src === src)) return
+
+    plantImages.push({
+      src,
+      thumbnail: mediaUrl(item, 'thumbnail') || src,
+      alt: mediaAlt(item, `${plant.name}, photo ${index + 2}`),
+    })
+  })
+
   const humidity = humidityRange(plant)
   const temp = tempRange(plant)
   const isLimited = typeof plant.stock === 'number' && plant.stock > 0 && plant.stock <= 5
@@ -88,58 +110,11 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
       </Link>
 
       <div className="la-detail" style={{ marginTop: 26 }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <div
-            style={{
-              position: 'relative',
-              aspectRatio: '1 / 1',
-              background: 'var(--bed)',
-              borderRadius: 'var(--radius-lg)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: 40,
-            }}
-          >
-            {photo ? (
-              <img
-                src={photo}
-                alt={mediaAlt(plant.photo, plant.name)}
-                style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-              />
-            ) : (
-              <Icon name="leaf" size={80} strokeWidth={1} style={{ color: 'var(--ink-muted)', opacity: 0.45 }} />
-            )}
-            {isLimited ? (
-              <Badge style={{ position: 'absolute', top: 16, left: 16 }}>Limited — {plant.stock} left</Badge>
-            ) : null}
-          </div>
-
-          {gallery.length > 0 ? (
-            <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-              {gallery.map((item, i) => {
-                const src = mediaUrl(item, 'thumbnail')
-                if (!src) return null
-                return (
-                  <img
-                    key={i}
-                    src={src}
-                    alt={mediaAlt(item, `${plant.name}, photo ${i + 2}`)}
-                    style={{
-                      width: 92,
-                      height: 92,
-                      objectFit: 'contain',
-                      display: 'block',
-                      padding: 10,
-                      background: 'var(--bed)',
-                      borderRadius: 'var(--radius-card)',
-                    }}
-                  />
-                )
-              })}
-            </div>
-          ) : null}
-        </div>
+        <PlantGallery
+          key={plant.id}
+          images={plantImages}
+          limitedLabel={isLimited ? `Limited — ${plant.stock} left` : undefined}
+        />
 
         <div>
           {categoryNames.length > 0 ? (
