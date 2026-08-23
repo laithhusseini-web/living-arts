@@ -21,34 +21,44 @@ export function PlantGallery({
   const activeImage = images[activeIndex] ?? images[0]
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <div style={{ display: 'flex', minWidth: 0, flexDirection: 'column', gap: 12 }}>
       <div
+        data-testid="plant-gallery-frame"
         style={{
           position: 'relative',
+          width: '100%',
           aspectRatio: '1 / 1',
+          overflow: 'hidden',
           background: 'var(--bed)',
           borderRadius: 'var(--radius-lg)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 40,
         }}
       >
-        {activeImage ? (
-          <img
-            key={activeImage.src}
-            src={activeImage.src}
-            alt={activeImage.alt}
-            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-          />
-        ) : (
-          <Icon
-            name="leaf"
-            size={80}
-            strokeWidth={1}
-            style={{ color: 'var(--ink-muted)', opacity: 0.45 }}
-          />
-        )}
+        <div
+          data-testid="plant-gallery-stage"
+          style={{
+            position: 'absolute',
+            inset: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {activeImage ? (
+            <img
+              key={activeImage.src}
+              src={activeImage.src}
+              alt={activeImage.alt}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+            />
+          ) : (
+            <Icon
+              name="leaf"
+              size={80}
+              strokeWidth={1}
+              style={{ color: 'var(--ink-muted)', opacity: 0.45 }}
+            />
+          )}
+        </div>
         {limitedLabel ? (
           <Badge style={{ position: 'absolute', top: 16, left: 16 }}>{limitedLabel}</Badge>
         ) : null}
@@ -73,6 +83,7 @@ export function PlantGallery({
                 style={{
                   width: 92,
                   height: 92,
+                  flex: '0 0 92px',
                   padding: 9,
                   border: `1px solid ${selected ? 'var(--accent)' : 'var(--line)'}`,
                   borderRadius: 'var(--radius-card)',

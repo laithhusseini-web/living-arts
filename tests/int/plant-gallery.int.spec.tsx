@@ -14,6 +14,9 @@ describe('PlantGallery', () => {
       />,
     )
 
+    const frame = screen.getByTestId('plant-gallery-frame')
+    expect(frame.style.aspectRatio).toBe('1 / 1')
+    expect(screen.getByTestId('plant-gallery-stage').style.position).toBe('absolute')
     expect(screen.getByRole('img', { name: 'Primary plant' }).getAttribute('src')).toBe(
       '/primary.jpg',
     )
@@ -24,6 +27,7 @@ describe('PlantGallery', () => {
     expect(screen.getByRole('img', { name: 'Plant detail' }).getAttribute('src')).toBe(
       '/detail.jpg',
     )
+    expect(frame.style.aspectRatio).toBe('1 / 1')
     expect(detailThumbnail.getAttribute('aria-pressed')).toBe('true')
   })
 })
