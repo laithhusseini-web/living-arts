@@ -10,6 +10,7 @@ import { Media } from './collections/Media'
 import { Categories } from './collections/Categories'
 import { Plants } from './collections/Plants'
 import { Settings } from './globals/Settings'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,6 +30,7 @@ export default buildConfig({
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URL || '' },
+    prodMigrations: migrations,
   }),
   sharp,
   upload: { limits: { fileSize: 10_000_000 } },
