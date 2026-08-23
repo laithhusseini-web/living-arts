@@ -20,7 +20,7 @@ export function SiteHeader({ shopName, isLoggedIn }: { shopName: string; isLogge
       >
         <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: 11, color: 'inherit' }}>
           <img className="la-mark" src="/brand/logo.png" alt="" width={26} height={39} style={{ display: 'block', height: 'auto' }} />
-          <span className="display la-wordmark" style={{ letterSpacing: '0.02em', lineHeight: 1, color: 'inherit' }}>
+          <span className="display la-wordmark" style={{ letterSpacing: '0.02em', lineHeight: 1 }}>
             {shopName}
           </span>
         </Link>

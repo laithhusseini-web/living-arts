@@ -202,6 +202,7 @@ a:hover {
 
 .la-wordmark {
   font-size: 25px;
+  color: var(--accent-fill);
 }
 
 .la-mark {
