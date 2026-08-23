@@ -15,6 +15,13 @@ import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+
+if (process.env.VERCEL === '1' && !blobToken) {
+  throw new Error(
+    'BLOB_READ_WRITE_TOKEN is missing. Connect a public Vercel Blob store to this project and redeploy.',
+  )
+}
 
 export default buildConfig({
   admin: {
@@ -38,7 +45,7 @@ export default buildConfig({
   plugins: [
     vercelBlobStorage({
       collections: { media: true },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      token: blobToken,
     }),
   ],
 })
