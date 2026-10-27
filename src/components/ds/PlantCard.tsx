@@ -10,8 +10,6 @@ export function PlantCard({
   latin,
   photo,
   href,
-  light,
-  lightLabel,
   price,
   stock,
   featured,
@@ -21,8 +19,6 @@ export function PlantCard({
   latin?: string | null
   photo?: string | null
   href: string
-  light?: string | null
-  lightLabel?: string
   price?: number | string | null
   stock?: number | null
   featured?: boolean | null
@@ -107,8 +103,7 @@ export function PlantCard({
             {latin}
           </div>
         ) : null}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginTop: 15 }}>
-          <span style={{ fontSize: 12, fontWeight: 300, color: 'var(--ink-muted)' }}>{lightLabel || light}</span>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
           {price != null ? (
             <span style={{ fontSize: 15, fontWeight: 500, color: 'var(--accent)', whiteSpace: 'nowrap' }}>
               {price} {currency}

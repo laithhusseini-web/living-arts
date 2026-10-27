@@ -206,8 +206,6 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
                   latin={p.latin}
                   href={`/plants/${p.slug}`}
                   photo={mediaUrl(p.photo, 'card')}
-                  light={p.light}
-                  lightLabel={p.light ? LIGHT_LABELS[p.light] : undefined}
                   price={p.price}
                   stock={p.stock}
                   featured={p.featured}

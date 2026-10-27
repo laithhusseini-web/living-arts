@@ -6,7 +6,7 @@ import { PlantCard } from '@/components/ds/PlantCard'
 import { Chip } from '@/components/ds/Chip'
 import { Button } from '@/components/ds/Button'
 import { Reveal } from '@/components/Reveal'
-import { LIGHT_LABELS, mediaUrl } from '@/lib/labels'
+import { mediaUrl } from '@/lib/labels'
 
 export default async function CataloguePage({
   searchParams,
@@ -111,8 +111,6 @@ export default async function CataloguePage({
                   latin={plant.latin}
                   href={`/plants/${plant.slug}`}
                   photo={mediaUrl(plant.photo, 'card')}
-                  light={plant.light}
-                  lightLabel={plant.light ? LIGHT_LABELS[plant.light] : undefined}
                   price={plant.price}
                   stock={plant.stock}
                   featured={plant.featured}
