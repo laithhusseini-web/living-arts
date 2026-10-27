@@ -87,6 +87,15 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
         .map((c) => (typeof c === 'object' && c !== null ? c.title : null))
         .filter((t): t is string => Boolean(t))
     : []
+  const backCategory = plant.categories?.find(
+    (category) => typeof category === 'object' && category !== null && category.slug,
+  )
+  const backHref =
+    typeof backCategory === 'object' && backCategory !== null
+      ? `/?category=${encodeURIComponent(backCategory.slug)}#collection`
+      : '/#collection'
+  const backLabel =
+    typeof backCategory === 'object' && backCategory !== null ? backCategory.title : 'Back to plants'
 
   const specRows = [
     { label: 'Origin', value: plant.origin },
@@ -102,11 +111,11 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
   return (
     <article className="la-container" style={{ paddingBlock: '34px 0' }}>
       <Link
-        href="/"
+        href={backHref}
         style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 300, color: 'var(--ink-muted)' }}
       >
         <Icon name="arrow-left" size={14} />
-        Back to plants
+        {backLabel}
       </Link>
 
       <div className="la-detail" style={{ marginTop: 26 }}>

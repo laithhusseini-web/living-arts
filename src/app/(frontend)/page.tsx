@@ -86,19 +86,19 @@ export default async function CataloguePage({
       <section id="collection" className="la-container" style={{ paddingBlock: '44px 96px' }}>
         <Reveal style={{ display: 'flex', alignItems: 'baseline', gap: 24, flexWrap: 'wrap' }}>
           <h2 className="display" style={{ fontSize: 34 }}>
-            Categories
+            {active?.title || 'All items'}
           </h2>
           <span style={{ fontSize: 13, fontWeight: 300, color: 'var(--ink-muted)' }}>
-            {totalDocs} {totalDocs === 1 ? 'plant' : 'plants'}
+            {totalDocs} {active?.title || (totalDocs === 1 ? 'item' : 'items')}
           </span>
         </Reveal>
 
         <Reveal delay={0.08} style={{ display: 'flex', flexWrap: 'wrap', gap: 9, margin: '22px 0 34px' }}>
-          <Chip href="/" selected={!active}>
+          <Chip href="/#collection" selected={!active}>
             All items
           </Chip>
           {categories.map((c) => (
-            <Chip key={c.id} href={`/?category=${c.slug}`} selected={active?.id === c.id}>
+            <Chip key={c.id} href={`/?category=${encodeURIComponent(c.slug)}#collection`} selected={active?.id === c.id}>
               {c.title}
             </Chip>
           ))}
