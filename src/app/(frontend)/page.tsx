@@ -75,12 +75,6 @@ export default async function CataloguePage({
             </div>
           </div>
         </div>
-        <div
-          aria-hidden="true"
-          style={{ position: 'absolute', bottom: 0, left: '50%', display: 'flex', justifyContent: 'center' }}
-        >
-          <span className="la-cue" />
-        </div>
       </section>
 
       <section id="collection" className="la-container" style={{ paddingBlock: '44px 96px' }}>
@@ -111,7 +105,7 @@ export default async function CataloguePage({
         ) : (
           <div className="la-grid">
             {plants.map((plant, i) => (
-              <Reveal key={plant.id} delay={(i % 4) * 0.08}>
+              <Reveal key={plant.id} className="la-plant-reveal" delay={(i % 4) * 0.08}>
                 <PlantCard
                   name={plant.name}
                   latin={plant.latin}

@@ -416,23 +416,52 @@ a:hover {
   filter: none;
 }
 
-/* the pulsing cue line at the foot of the hero */
-.la-cue {
-  width: 1px;
-  height: 54px;
-  background: var(--hero-line);
-  transform-origin: top;
-  animation: la-cue 2.2s var(--ease-hero) infinite;
+/* Keep upcoming cards visible as skeletons before their scroll reveal. */
+.la-plant-reveal:not([data-shown]) {
+  position: relative;
+  opacity: 1;
+  transform: none;
+  filter: none;
 }
 
-@keyframes la-cue {
-  0%,
-  100% {
-    transform: scaleY(0.15);
-  }
-  55% {
-    transform: scaleY(1);
-  }
+.la-plant-reveal:not([data-shown]) > * {
+  visibility: hidden;
+}
+
+.la-plant-reveal:not([data-shown])::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  aspect-ratio: 1;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--ink-muted) 16%, var(--page));
+  pointer-events: none;
+}
+
+.la-plant-reveal:not([data-shown])::after {
+  content: '';
+  position: absolute;
+  top: calc(100% - 78px);
+  left: 2px;
+  width: 65%;
+  height: 18px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--ink-muted) 16%, var(--page));
+  box-shadow: 0 28px 0 -4px color-mix(in srgb, var(--ink-muted) 12%, var(--page));
+  pointer-events: none;
+}
+
+.la-plant-image-loading {
+  overflow: hidden;
+}
+
+.la-plant-image-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: color-mix(in srgb, var(--ink-muted) 16%, var(--page));
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -441,11 +470,6 @@ a:hover {
   .la-header {
     animation: la-soft 0.5s ease both;
     animation-delay: 0s;
-  }
-
-  .la-cue {
-    animation: none;
-    transform: scaleY(1);
   }
 
   [data-reveal] {

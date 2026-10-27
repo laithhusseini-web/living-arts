@@ -59,7 +59,7 @@ Back office → **Plants** → **Create New**. Two tabs:
 - **Plant** — name, botanical name, photo, gallery, origin, best growth, price, stock, categories
 - **Conditions** — light, humidity, temperature, growth, difficulty (these fill the spec tiles)
 
-Stock of 5 or fewer automatically shows the "Limited" badge. Leave the slug blank and
+Stock of 3 or fewer automatically shows the "Limited" badge. Leave the slug blank and
 it's generated from the name.
 
 **Photos should be cut out — transparent PNG, no background.** Plants sit on a plain

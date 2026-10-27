@@ -166,7 +166,7 @@ export interface Plant {
    */
   price: number;
   /**
-   * 5 or fewer shows the "Limited drop" badge.
+   * 3 or fewer shows the "Limited" badge.
    */
   stock: number;
   /**

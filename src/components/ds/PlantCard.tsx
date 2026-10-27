@@ -29,7 +29,10 @@ export function PlantCard({
   currency?: string
 }) {
   const [hov, setHov] = React.useState(false)
-  const isLimited = typeof stock === 'number' && stock > 0 && stock <= 5
+  const [loadedPhoto, setLoadedPhoto] = React.useState<string | null>(null)
+  const [failedPhoto, setFailedPhoto] = React.useState<string | null>(null)
+  const imagePending = Boolean(photo && loadedPhoto !== photo && failedPhoto !== photo)
+  const isLimited = typeof stock === 'number' && stock > 0 && stock <= 3
 
   return (
     <Link
@@ -42,6 +45,7 @@ export function PlantCard({
       }}
     >
       <div
+        className={imagePending ? 'la-plant-image-loading' : undefined}
         style={{
           position: 'relative',
           aspectRatio: '1 / 1',
@@ -53,17 +57,24 @@ export function PlantCard({
           padding: 44,
         }}
       >
-        {photo ? (
+        {photo && failedPhoto !== photo ? (
           <img
             src={photo}
             alt=""
+            loading="lazy"
+            onLoad={() => setLoadedPhoto(photo)}
+            onError={() => setFailedPhoto(photo)}
+            ref={(image) => {
+              if (image?.complete && image.naturalWidth > 0) setLoadedPhoto(photo)
+            }}
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'contain',
               display: 'block',
+              opacity: imagePending ? 0 : 1,
               transform: hov ? 'scale(1.04)' : 'none',
-              transition: 'transform 420ms var(--ease)',
+              transition: 'transform 420ms var(--ease), opacity 240ms ease',
             }}
           />
         ) : (

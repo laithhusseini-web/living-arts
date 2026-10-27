@@ -110,7 +110,7 @@ export const Plants: CollectionConfig = {
                   required: true,
                   defaultValue: 0,
                   min: 0,
-                  admin: { width: '33%', description: '5 or fewer shows the "Limited drop" badge.' },
+                  admin: { width: '33%', description: '3 or fewer shows the "Limited" badge.' },
                 },
               ],
             },

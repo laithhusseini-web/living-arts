@@ -80,7 +80,7 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
 
   const humidity = humidityRange(plant)
   const temp = tempRange(plant)
-  const isLimited = typeof plant.stock === 'number' && plant.stock > 0 && plant.stock <= 5
+  const isLimited = typeof plant.stock === 'number' && plant.stock > 0 && plant.stock <= 3
 
   const categoryNames = Array.isArray(plant.categories)
     ? plant.categories
